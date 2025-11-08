@@ -1,0 +1,27 @@
+<h1>Welcome to Docker Hands-on Project!</h1>
+<p>This is a static frontend served by Nginx.</p>
+
+<h2>Messages from Backend:</h2>
+<ul id="messages"></ul>
+
+<script>
+async function loadMessages() {
+  try {
+    const response = await fetch('http://localhost:5000/messages'); // Backend URL
+    const messages = await response.json();
+    const list = document.getElementById('messages');
+    list.innerHTML = ''; // Clear existing messages
+    messages.forEach(msg => {
+      const li = document.createElement('li');
+      li.textContent = msg.msg;
+      list.appendChild(li);
+    });
+  } catch (error) {
+    console.error('Error fetching messages:', error);
+  }
+}
+
+// Call function when page loads
+window.onload = loadMessages;
+</script>
+
